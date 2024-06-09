@@ -1,0 +1,7 @@
+def count_elements(arr):
+    count = 0
+    for num in arr:
+        if num + 1 in arr:
+            count += 1
+    return count
+print(count_elements([1,2,3]))
