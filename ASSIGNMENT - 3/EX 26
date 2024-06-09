@@ -1,0 +1,23 @@
+def kids_with_candies(candies, extra_candies):
+    """
+    Returns a boolean array where each element represents whether the kid at that index
+    can have the greatest number of candies after receiving all the extra candies.
+
+    Args:
+    candies (list): A list of integers representing the number of candies each kid has.
+    extra_candies (int): The number of extra candies available.
+
+    Returns:
+    list: A boolean list where each element is True if the kid at that index can have
+          the greatest number of candies, False otherwise.
+    """
+    max_candies = max(candies)
+
+    result = [False] * len(candies)
+
+    for i in range(len(candies)):
+        if candies[i] + extra_candies >= max_candies:
+            result[i] = True
+
+    return result
+print(kids_with_candies([2,3,5,1,3], 3))
