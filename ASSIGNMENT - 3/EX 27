@@ -1,0 +1,17 @@
+def maximumGap(num: int) -> int:
+    num_str = str(num)
+    max_num = num
+    min_num = num
+
+    for i in range(10):
+        for j in range(10):
+            new_str = ''.join([str(j) if c == str(i) else c for c in num_str])
+            if new_str[0] == '0' and len(new_str) > 1:
+                continue
+            new_num = int(new_str)
+            if new_num != num:
+                max_num = max(max_num, new_num)
+                min_num = min(min_num, new_num)
+
+    return max_num - min_num
+print(maximumGap(555))
