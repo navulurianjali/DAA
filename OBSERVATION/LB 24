@@ -1,0 +1,11 @@
+def lastStringBeforeEmptying(s):
+    while True:
+        new_s = s
+        for c in 'abcdefghijklmnopqrstuvwxyz':
+            new_s = new_s.replace(c, '')
+        if new_s == s or new_s == "":  
+            return s
+        s = new_s
+
+s = "aabcbbca"
+print(lastStringBeforeEmptying(s))
