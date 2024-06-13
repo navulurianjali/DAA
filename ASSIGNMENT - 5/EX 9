@@ -1,0 +1,42 @@
+class FrequencyTracker:
+    def __init__(self):
+        self.num_count = {}
+        self.freq_count = {}    
+    def add(self, number):
+        if number in self.num_count:
+            old_freq = self.num_count[number]
+            self.freq_count[old_freq] -= 1
+            if self.freq_count[old_freq] == 0:
+                del self.freq_count[old_freq]
+            self.num_count[number] += 1
+        else:
+            self.num_count[number] = 1
+        new_freq = self.num_count[number]
+        if new_freq in self.freq_count:
+            self.freq_count[new_freq] += 1
+        else:
+            self.freq_count[new_freq] = 1
+    def deleteOne(self, number):
+        if number in self.num_count:
+            old_freq = self.num_count[number]
+            self.freq_count[old_freq] -= 1
+            if self.freq_count[old_freq] == 0:
+                del self.freq_count[old_freq]
+            if old_freq == 1:
+                del self.num_count[number]
+            else:
+                self.num_count[number] -= 1
+                new_freq = self.num_count[number]
+                if new_freq in self.freq_count:
+                    self.freq_count[new_freq] += 1
+                else:
+                    self.freq_count[new_freq] = 1
+    def hasFrequency(self, frequency):
+        return frequency in self.freq_count and self.freq_count[frequency] > 0
+freq_tracker = FrequencyTracker()
+freq_tracker.add(13)
+freq_tracker.add(113)
+freq_tracker.add(15)
+freq_tracker.deleteOne(113)
+print(freq_tracker.hasFrequency(12))  
+print(freq_tracker.hasFrequency(11))  
