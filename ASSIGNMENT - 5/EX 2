@@ -1,0 +1,16 @@
+from math import gcd
+from functools import reduce
+def lcm(a, b):
+    return a * b // gcd(a, b)
+def num_of_subarrays_with_lcm(nums, k):
+    def subarray_lcm(subarray):
+        return reduce(lcm, subarray)    
+    count = 0
+    n = len(nums)
+    for i in range(n):
+        for j in range(i, n):
+            if subarray_lcm(nums[i:j+1]) == k:
+                count += 1
+    return count
+print(num_of_subarrays_with_lcm([3,6,2,7,1], 7)) 
+print(num_of_subarrays_with_lcm([3], 2))  
