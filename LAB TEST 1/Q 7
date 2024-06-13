@@ -1,0 +1,25 @@
+def permuteUnique(nums):
+    results = []
+    nums.sort()
+    
+    def backtrack(comb, counter):
+        if len(comb) == len(nums):
+            results.append(list(comb))
+            return
+        
+        for num in counter:
+            if counter[num] > 0:
+                comb.append(num)
+                counter[num] -= 1
+                
+                backtrack(comb, counter)
+                
+                comb.pop()
+                counter[num] += 1
+    
+    counter = {num: nums.count(num) for num in nums}
+    backtrack([], counter)
+    return results
+
+nums = [1, 1, 2]
+print(permuteUnique(nums)) 
