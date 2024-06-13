@@ -1,0 +1,14 @@
+def countAndSay(n):
+    if n == 1:
+        return "1"
+    previous = countAndSay(n - 1)
+    result, i = "", 0
+    while i < len(previous):
+        count = 1
+        while i + 1 < len(previous) and previous[i] == previous[i + 1]:
+            i += 1
+            count += 1
+        result += str(count) + previous[i]
+        i += 1
+    return result
+print(countAndSay(4)) 
