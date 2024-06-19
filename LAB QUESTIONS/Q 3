@@ -1,0 +1,14 @@
+def find_substrings(words):
+    unique_words = set(words)
+
+    result = []
+    for word in words:
+        for unique_word in unique_words:
+            if word != unique_word and word in unique_word:
+                result.append(word)
+                break
+
+    return result
+
+words = ["mass","as","hero","superhero"]
+print(find_substrings(words))  
