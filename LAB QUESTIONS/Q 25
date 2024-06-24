@@ -1,0 +1,19 @@
+def findNthDigit(n):
+    if n < 10:
+        return n
+    n -= 9
+    len = 2
+    start = 10
+    while n >= len * 9 * 10**(len-1):
+        n -= len * 9 * 10**(len-1)
+        len += 1
+        start *= 10
+    start += n // len
+    s = str(start)
+    return int(s[n % len])
+
+n = 3
+print(findNthDigit(n))  
+
+n = 11
+print(findNthDigit(n))  
