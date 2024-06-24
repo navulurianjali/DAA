@@ -1,0 +1,45 @@
+def find_good_strings(n, s1, s2, evil):
+    MOD = 10**9 + 7
+    dp = [[0]*(n+1) for _ in range(26)]
+    dp[0][0] = 1
+
+    for i in range(n):
+        for j in range(26):
+            for k in range(j, 26):
+                dp[k][i+1] = (dp[k][i+1] + dp[j][i]) % MOD
+
+    res = 0
+    for i in range(26):
+        if s1[0] <= chr(i+97):
+            res = (res + dp[i][1]) % MOD
+
+    for i in range(1, n):
+        for j in range(26):
+            if s1[i] <= chr(j+97):
+                res = (res + dp[j][i+1]) % MOD
+            else:
+                break
+
+    for i in range(n):
+        for j in range(26):
+            if s2[i] < chr(j+97):
+                res = (res - dp[j][i+1]) % MOD
+            else:
+                break
+
+    evil_len = len(evil)
+    for i in range(n - evil_len + 1):
+        for j in range(26):
+            if s1[i] <= chr(j+97) and s2[i+evil_len-1] >= chr(j+97):
+                if all(s2[k] >= chr(j+97) for k in range(i, i+evil_len)):
+                    res = (res - dp[j][i+evil_len]) % MOD
+                else:
+                    break
+
+    return res
+
+n = 2
+s1 = "aa"
+s2 = "da"
+evil = "b"
+print(find_good_strings(n, s1, s2, evil))  
