@@ -1,0 +1,10 @@
+def minOperations(nums):
+    stack = []
+    for num in nums:
+        if stack and stack[-1] < num:
+            stack.pop()
+        stack.append(num)
+    return len(stack)
+
+nums = [1,2,3,4]
+print(minOperations(nums))  
