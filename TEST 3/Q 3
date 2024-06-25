@@ -1,0 +1,52 @@
+import heapq
+
+class HuffmanNode:
+    def __init__(self, char=None, freq=0):
+        self.char = char
+        self.freq = freq
+        self.left = None
+        self.right = None
+    
+    def __lt__(self, other):
+        return self.freq < other.freq
+
+def build_huffman_tree(characters, frequencies):
+    if len(characters) != len(frequencies):
+        raise ValueError("Characters and frequencies must have the same length")
+    
+    n = len(characters)
+    priority_queue = []
+    
+    for i in range(n):
+        heapq.heappush(priority_queue, HuffmanNode(characters[i], frequencies[i]))
+    
+    while len(priority_queue) > 1:
+        left = heapq.heappop(priority_queue)
+        right = heapq.heappop(priority_queue)
+        
+        new_node = HuffmanNode(freq=left.freq + right.freq)
+        new_node.left = left
+        new_node.right = right
+        
+        heapq.heappush(priority_queue, new_node)
+    
+    return priority_queue[0]
+
+def generate_huffman_codes(root):
+    codes = {}
+    
+    def traverse(node, code=''):
+        if node:
+            if node.char:
+                codes[node.char] = code
+            traverse(node.left, code + '0')
+            traverse(node.right, code + '1')
+    
+    traverse(root)
+    return codes
+characters1 = ['a', 'b', 'c', 'd']
+frequencies1 = [5, 9, 12, 13]
+root1 = build_huffman_tree(characters1, frequencies1)
+huffman_codes1 = generate_huffman_codes(root1)
+output1 = [(char, huffman_codes1[char]) for char in characters1]
+print(output1)
