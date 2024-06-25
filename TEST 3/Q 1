@@ -1,0 +1,34 @@
+import heapq
+
+def dijkstra_adjacency_matrix(graph, source):
+    n = len(graph)
+    distances = [float('inf')] * n
+    distances[source] = 0
+    priority_queue = [(0, source)]
+    
+    while priority_queue:
+        current_dist, u = heapq.heappop(priority_queue)
+        
+        if current_dist > distances[u]:
+            continue
+        
+        for v in range(n):
+            if graph[u][v] != float('inf'):
+                distance = current_dist + graph[u][v]
+                
+                if distance < distances[v]:
+                    distances[v] = distance
+                    heapq.heappush(priority_queue, (distance, v))
+    
+    return distances
+
+n1 = 5
+graph1 = [
+    [0, 10, 3, float('inf'), float('inf')],
+    [float('inf'), 0, 1, 2, float('inf')],
+    [float('inf'), 4, 0, 8, 2],
+    [float('inf'), float('inf'), float('inf'), 0, 7],
+    [float('inf'), float('inf'), float('inf'), 9, 0]
+]
+source1 = 0
+print(dijkstra_adjacency_matrix(graph1, source1))  
