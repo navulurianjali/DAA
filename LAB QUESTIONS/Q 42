@@ -1,0 +1,33 @@
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+def sortList(head):
+    values = []
+    current = head
+    while current:
+        values.append(current.val)
+        current = current.next
+
+    values.sort()
+
+    new_head = ListNode(values[0])
+    current = new_head
+    for val in values[1:]:
+        current.next = ListNode(val)
+        current = current.next
+
+    return new_head
+
+head = ListNode(4)
+head.next = ListNode(2)
+head.next.next = ListNode(1)
+head.next.next.next = ListNode(3)
+
+sorted_head = sortList(head)
+
+current = sorted_head
+while current:
+    print(current.val, end=" ")
+    current = current.next
