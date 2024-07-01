@@ -1,0 +1,39 @@
+import heapq
+
+INF = float('inf')
+
+def dijkstra(n, graph, source):
+
+    distances = [INF] * n
+    distances[source] = 0
+    priority_queue = [(0, source)]
+
+    while priority_queue:
+        current_distance, current_node = heapq.heappop(priority_queue)
+
+        if current_distance > distances[current_node]:
+            continue
+
+        for neighbor in range(n):
+            weight = graph[current_node][neighbor]
+            if weight != INF:  
+                distance = current_distance + weight
+                if distance < distances[neighbor]:
+                    distances[neighbor] = distance
+                    heapq.heappush(priority_queue, (distance, neighbor))
+
+    return distances
+n = 5
+graph = [
+    [0, 10, 3, INF, INF],
+    [INF, 0, 1, 2, INF],
+    [INF, 4, 0, 8, 2],
+    [INF, INF, INF, 0, 7],
+    [INF, INF, INF, 9, 0]
+]
+
+source = 0
+distances = dijkstra(n, graph, source)
+print("Shortest distances from node", source, ":")
+for i, distance in enumerate(distances):
+    print("Node", i, ":", distance)
